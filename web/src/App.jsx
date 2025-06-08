@@ -1,6 +1,9 @@
-import { useState } from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Root from "./pages/Root"
+import Homepage from './pages/Homepage'
+import ProtectRoute from './components/ProtectRoute'
+import Login from './pages/Login'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +27,6 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-
   return <RouterProvider router={router} />
 }
 
