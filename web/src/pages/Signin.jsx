@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Signin() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [name, setName] = useState("")
   const [error, setError] = useState("")
   const navigate = useNavigate()
 
@@ -12,17 +13,16 @@ function Login() {
     e.preventDefault();
     setError("");
     try{
-      const res = await fetch(`http://localhost:10000/api/v1/login`, {
+      const res = await fetch(`http://localhost:10000/api/v1/signup`, {
         method: `POST`,
         headers: { "Content-Type": 'application/json' },
-        body: JSON.stringify({email, password}),
+        body: JSON.stringify({ name,email, password}),
       })
       const data = await res.json();
-      if (res.ok && data.token) {
-        localStorage.setItem(`token`, data.token);
+      if (res.ok) {
         navigate("/")
       } else {
-        setError(res.data.error || "Грешка при најавување")
+        setError(res.data.error || "Грешка при регистрирање")
       }
     }catch(err){
       console.log(err);
@@ -31,8 +31,12 @@ function Login() {
   }
 
   return <div style={{maxWidth: 350, margin: "2rem auto"}}>
-    <h2>Најава</h2>
+    <h2>Регистрација</h2>
     <form onSubmit={handleSubmit}>
+        <div>
+            <label>Име:</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required style={{width: "100%", marginBottom: 0}} />
+        </div>
       <div>
         <label>Е-пошта</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{width: "100%", marginBottom: 0}}/>
@@ -42,9 +46,10 @@ function Login() {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{width: "100%", marginBottom: "25px"}}/>
       </div>
       {/* {error && <div style={{color: "red", marginBottom: 8}}>{error}</div>} */}
-      <button type='submit' style={{width: "100%"}}>Најави се</button>
+      <button type='submit' style={{width: "100%"}}>Регистрирај се</button>
+      <p style={{color: "red"}}>{error}</p>
     </form>
   </div>;
 }
 
-export default Login;
+export default Signin;

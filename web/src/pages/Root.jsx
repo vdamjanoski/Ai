@@ -19,10 +19,22 @@ function Root() {
         {!isLoggedIn && (<Link to='/login' style={{ marginRight: '1rem' }}>
           Најава
         </Link>)}
+        {!isLoggedIn && (<Link to='/signin' style={{ marginRight: '1rem' }}>
+          Регистрирај се
+        </Link>)}
         {isLoggedIn && (
-          <button style={{ marginRight: '1rem' }} onClick={handleLogout}>
+        <button style={{ marginRight: '1rem' }} onClick={handleLogout}>
             Одјава
-          </button>
+        </button>)}
+          {isLoggedIn && (
+        <Link to='/pochva' style={{ marginRight: '1rem'}}>
+              Почви
+        </Link>
+          )}
+        {isLoggedIn && (
+          <Link to='/pocva-chat' style={{marginRight: '1rem'}}>
+            Разговор со AI
+          </Link>
         )}
       </nav>
       <main style={{ padding: '1rem' }}>

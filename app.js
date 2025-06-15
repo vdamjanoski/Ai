@@ -12,7 +12,6 @@ const app = express();
 
 app.use(cors());
 
-//middlewares
 
 database.connectDatabase();
 app.use(express.urlencoded({extended: true}))
